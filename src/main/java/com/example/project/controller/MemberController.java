@@ -45,7 +45,7 @@ public class MemberController {
            model.addAttribute("member", result);
            session.setAttribute("LoginEmail",result.getMemberEmail());
 
-           return "boardPage";
+           return "boardMain";
        }else{
            return "memberLogin";
        }
