@@ -49,4 +49,30 @@ public class MemberService {
         }
 
     }
+
+    public MemberDTO memberLogin(MemberDTO memberDTO) {
+        //        email로 DB에서 조회를 하고
+//        사용자가 입력한 비밀번호와 DB에서 조회한 비밀번호가 일치하는지를 판단해서
+//        로그인 성공, 실패 여부를 리턴
+//        단, email 조회결과가 없을 때도 실패
+        Optional<MemberEntity> optionalMemberEntity= memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
+        //이메일로 디비에 맞는게 있는지 확인하기 위해 레파지에 이메일 컬럼 추가하고 이메일과 맞는게 있는지 optionalMemberEntity로 가져온다
+        if(optionalMemberEntity.isPresent()){
+            // 만약 그 값이 있다면 아래 실행
+            MemberEntity memberEntity = optionalMemberEntity.get();
+            // 가져온값을 memberEntity에 담아 주고
+            if(memberEntity.getMemberPass().equals(memberDTO.getMemberPass()) ){
+                //그담은 값의 비밀번호와 입력한 비밀번호가 맞으면 아래 실행
+                MemberDTO memberDTO1 = MemberDTO.toMemberDTO(memberEntity);
+                // memberEntity의 정보를 memberDTO1 에 담아준다
+                //리턴값이 MemberDTO 타입이기 때문에
+                return memberDTO1;
+                //마지막으로 그 값을 리턴
+            }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
+    }
 }

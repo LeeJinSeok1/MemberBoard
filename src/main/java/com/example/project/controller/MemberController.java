@@ -4,8 +4,10 @@ import com.example.project.dto.MemberDTO;
 import com.example.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -29,5 +31,28 @@ public class MemberController {
        }else{
            return "no";
        }
+    }
+    @GetMapping("/memberLogin")
+    public String memberLoginPage() {
+        return "memberLogin";
+    }
+    @PostMapping("/memberLogin")
+    public String memberLogin(@ModelAttribute MemberDTO memberDTO,
+                              Model model, HttpSession session){
+       MemberDTO result = memberService.memberLogin(memberDTO);
+        System.out.println(result);
+       if(result !=null) {
+           model.addAttribute("member", result);
+           session.setAttribute("LoginEmail",result.getMemberEmail());
+
+           return "boardPage";
+       }else{
+           return "memberLogin";
+       }
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+       session.invalidate();
+       return "index";
     }
 }

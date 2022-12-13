@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+</head>
+<body>
+<div class="container">
+  <form action="/memberLogin" method="post" class="form-control mt-5">
+    <input type="text" class="form-control mt-5" placeholder="이메일입력" name="memberEmail">
+    <input type="text" class="form-control mt-5" placeholder="비밀번호입력" name="memberPass">
+    <input type="submit" class="btn btn-success mt-5" value="Login">
+  </form>
+</div>
+
+</body>
+</html>

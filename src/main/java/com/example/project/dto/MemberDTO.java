@@ -1,10 +1,7 @@
 package com.example.project.dto;
 
 import com.example.project.entity.MemberEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class MemberDTO {
     private Long id;
     private String memberEmail;
@@ -32,7 +30,9 @@ public class MemberDTO {
         memberDTO.setMemberEmail(memberEntity.getMemberEmail());
         memberDTO.setMemberPass(memberEntity.getMemberPass());
         memberDTO.setMemberName(memberEntity.getMemberName());
+        memberDTO.setMemberMobile(memberEntity.getMemberMobile());
         memberDTO.setMemberSaveTime(memberEntity.getMemberSaveTime());
+        memberDTO.setFileAttached(memberDTO.getFileAttached());
         return memberDTO;
     }
 }
