@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+
+  <script th:src="@{/js/jqurey.js}"></script>
+</head>
+<body>
+<div class="container">
+  <form action="/memberSave" method="post" class="form-control mt-5" enctype="multipart/form-data">
+    <input type="text" class="form-control mt-5" name="memberEmail" id="email" onblur="emailCk()" placeholder="이메일 입력">
+    <input type="text" id="pass" onblur="passCk()" class="form-control mt-5" name="memberPass" placeholder="비밀번호 입력">
+    <span id="passBox"></span>
+    <input type="text" class="form-control mt-5" name="memberName" placeholder="이름 입력">
+    <input type="text" id="mobile" class="form-control mt-5" onblur="mobileCheck()" name="memberMobile" placeholder="전화번호 입력">
+    <span id="mobileBox"></span>
+    <input type="file" class="form-control mt-5" name="memberFile" placeholder="프로필 사진">
+    <input type="submit" class="btn btn-primary mt-5" value="회원가입">
+  </form>
+</div>
+
+</body>
+<script>
+  const mobileCheck=()=> {
+    const mobile = document.getElementById("mobile").value;
+    const mobileCk = /\d{3}-\d{4}-\d{4}/;
+    const mobileBox = document.getElementById("mobileBox")
+    if(mobileCk.test(mobile)){
+      mobileBox.innerHTML="베리 굳~"
+      mobileBox.style.color="green";
+    }else{
+      mobileBox.innerHTML="010-0000-0000형식에 맞춰주세요."
+      mobileBox.style.color="red";
+    }
+  }
+
+  const passCk = () => {
+    const pass =document.getElementById("pass").value;
+    const passBox = document.getElementById("passBox");
+    if(pass==""){
+      passBox.innerHTML="필수값입니다."
+      passBox.style.color="red";
+    }else{
+      passBox.innerHTML=""
+    }
+  }
+  const emailCk =() => {
+    const email = document.getElementById("email").value;
+
+
+
+    
+  }
+
+</script>
+</html>
