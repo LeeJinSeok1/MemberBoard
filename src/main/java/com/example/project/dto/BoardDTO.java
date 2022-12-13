@@ -22,4 +22,12 @@ public class BoardDTO {
     private int fileAttached;
     private String originalFileName;
     private String storedFileName;
+
+    public BoardDTO(Long id, String boardWriter, String boardTitle,int boardHits, LocalDateTime boardSaveTime){
+        this.id = id;
+        this.boardWriter=boardWriter;
+        this.boardTitle=boardTitle;
+        this.boardHits=boardHits;
+        this.boardSaveTime=boardSaveTime;
+    }
 }

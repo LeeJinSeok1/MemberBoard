@@ -9,11 +9,17 @@ import com.example.project.repository.BoardFileRepository;
 import com.example.project.repository.BoardRepository;
 import com.example.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -40,4 +46,24 @@ public class BoardService {
             boardFileRepository.save(boardFileEntity);
         }
     }
+
+    public Page<BoardDTO> boardPaging(Pageable pageable) {
+        int page = pageable.getPageNumber() -1;
+        final int pageLimit =3;
+        Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit,
+                Sort.by(Sort.Direction.DESC, "id")));
+        Page<BoardDTO> boardList = boardEntities.map(
+                board-> new BoardDTO(board.getId(),
+                        board.getBoardWriter(),
+                        board.getBoardTitle(),
+                        board.getBoardHits(),
+                        board.getBoardSaveTime())
+        );
+
+        return boardList;
+
+
+    }
 }
+
+
