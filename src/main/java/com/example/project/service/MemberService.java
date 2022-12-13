@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +38,15 @@ public class MemberService {
 
             memberFileRepository.save(memberFileEntity);
         }
+    }
+
+    public MemberDTO emailCk(String memberEmail) {
+        Optional<MemberEntity> optionalMemberEntity= memberRepository.findByMemberEmail(memberEmail);
+        if(optionalMemberEntity.isPresent()) {
+            return  MemberDTO.toMemberDTO(optionalMemberEntity.get());
+        }else{
+            return null;
+        }
+
     }
 }

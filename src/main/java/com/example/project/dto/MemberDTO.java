@@ -1,5 +1,6 @@
 package com.example.project.dto;
 
+import com.example.project.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,14 @@ public class MemberDTO {
     private int fileAttached;
     private String originalFileName;
     private String storedFileName;
+
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberDTO.getId());
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPass(memberEntity.getMemberPass());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        memberDTO.setMemberSaveTime(memberEntity.getMemberSaveTime());
+        return memberDTO;
+    }
 }

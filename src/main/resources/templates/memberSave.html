@@ -11,6 +11,7 @@
 <div class="container">
   <form action="/memberSave" method="post" class="form-control mt-5" enctype="multipart/form-data">
     <input type="text" class="form-control mt-5" name="memberEmail" id="email" onblur="emailCk()" placeholder="이메일 입력">
+    <span id="emailBox"></span>
     <input type="text" id="pass" onblur="passCk()" class="form-control mt-5" name="memberPass" placeholder="비밀번호 입력">
     <span id="passBox"></span>
     <input type="text" class="form-control mt-5" name="memberName" placeholder="이름 입력">
@@ -48,10 +49,33 @@
   }
   const emailCk =() => {
     const email = document.getElementById("email").value;
+    const emailBox = document.getElementById("emailBox")
+
+    $.ajax({
+      type:"post",
+      url:"/emailCk",
+      data:{
+        memberEmail:email
+      },
+      dateType: "text",
+      success: function (ck){
+        if(ck=="no"){
+          emailBox.innerHTML="사용중인 이메일입니다."
+          emailBox.style.color="red"
+        }else{
+          emailBox.innerHTML="사용 가능합니다."
+          emailBox.style.color="green"
+        }
+
+      },
+      error: function (ck) {
+
+      }
+    })
 
 
 
-    
+
   }
 
 </script>

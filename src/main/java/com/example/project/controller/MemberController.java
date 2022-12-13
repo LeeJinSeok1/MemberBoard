@@ -4,9 +4,7 @@ import com.example.project.dto.MemberDTO;
 import com.example.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -22,5 +20,14 @@ public class MemberController {
     public String memberSave(@ModelAttribute MemberDTO memberDTO) throws IOException {
         memberService.memberSave(memberDTO);
         return "index";
+    }
+    @PostMapping("/emailCk")
+    public @ResponseBody String emailCk(@RequestParam("memberEmail") String memberEmail) {
+       MemberDTO memberDTO = memberService.emailCk(memberEmail);
+       if(memberDTO == null) {
+           return "ok";
+       }else{
+           return "no";
+       }
     }
 }
