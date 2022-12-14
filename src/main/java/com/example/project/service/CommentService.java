@@ -10,6 +10,8 @@ import com.example.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +33,27 @@ private final MemberRepository memberRepository;
             CommentEntity commentEntity = CommentEntity.toCommentSave(commentDTO, boardEntity,memberEntity);
 
             commentRepository.save(commentEntity);
+
+    }
+
+    public List<CommentDTO> commentList(Long boardId) {
+        Optional<BoardEntity> optionalCommentEntity =boardRepository.findById(boardId);
+        BoardEntity boardEntity=optionalCommentEntity.get();
+
+        List<CommentEntity> commentEntityList =
+                commentRepository.findAllByBoardEntityOrderByIdDesc(boardEntity);
+
+       List<CommentDTO> commentDTOList = new ArrayList<>();
+        for (CommentEntity commentEntity: commentEntityList){
+            CommentDTO commentDTO = new CommentDTO();
+            commentDTO.setId(commentEntity.getId());
+            commentDTO.setCommentWriter(commentEntity.getCommentWriter());
+            commentDTO.setCommentContents(commentEntity.getCommentContents());
+            commentDTO.setBoardId(commentEntity.getBoardEntity().getId());
+            commentDTO.setMemberId(commentEntity.getMemberEntity().getId());
+            commentDTOList.add(commentDTO);
+        }
+        return commentDTOList;
 
     }
 }

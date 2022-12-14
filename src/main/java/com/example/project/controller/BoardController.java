@@ -1,7 +1,9 @@
 package com.example.project.controller;
 
 import com.example.project.dto.BoardDTO;
+import com.example.project.dto.CommentDTO;
 import com.example.project.service.BoardService;
+import com.example.project.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final CommentService commentService;
     @GetMapping("/boardSave")
     public String boardSavePage() {
         return "boardSave";
@@ -47,6 +50,12 @@ public class BoardController {
                               Model model){
       BoardDTO boardDTO =  boardService.boardDetail(id);
       model.addAttribute("board",boardDTO);
+        List<CommentDTO> commentDTOList = commentService.commentList(id);
+        if (commentDTOList.size() > 0) {
+            model.addAttribute("commentList", commentDTOList);
+        } else {
+            model.addAttribute("commentList", "empty");
+        }
       return "boardDetail";
     }
     @GetMapping("/boardUpdate/{id}")

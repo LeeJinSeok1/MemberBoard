@@ -72,6 +72,21 @@
             <button id="comment-write-btn" onclick="commentWrite()" class="btn btn-primary">댓글작성</button>
 
         </div>
+
+<div id="commentArea">
+    <div th:if="${commentList == 'empty'}">
+        <p>작성된 댓글이 없습니다.</p>
+    </div>
+    <div th:unless="${commentList == 'empty'}">
+        <table class="table">
+            <tr th:each="comment: ${commentList}">
+                <td th:text="${comment.id}"></td>
+                <td th:text="${comment.commentWriter}"></td>
+                <td th:text="${comment.commentContents}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
     </div>
 </div>
 </body>
@@ -89,7 +104,24 @@
                 boardId:boardId
             },
             dateType: "json",
-            success: function (ck) {
+            success: function (commentList) {
+                let output = "<table class='table'>";
+                output += "<tr><th>댓글번호</th>";
+                output += "<th>작성자</th>";
+                output += "<th>내용</th></tr>";
+
+                for(let i in commentList){
+                    output += "<tr>";
+                    output += "<td>"+commentList[i].id+"</td>";
+                    output += "<td>"+commentList[i].commentWriter+"</td>";
+                    output += "<td>"+commentList[i].commentContents+"</td>";
+                    output += "</tr>";
+                }
+                output += "</table>";
+                document.getElementById('commentArea').innerHTML = output;
+                document.getElementById('commentWriter').value='';
+                document.getElementById('commentContents').value='';
+
 
             },
             error: function (ck) {

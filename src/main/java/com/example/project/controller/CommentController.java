@@ -8,13 +8,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
     @PostMapping("/commentSave")
-    public @ResponseBody CommentDTO commentSave(@ModelAttribute CommentDTO commentDTO) {
+    public @ResponseBody List<CommentDTO> commentSave(@ModelAttribute CommentDTO commentDTO) {
         commentService.commentSave(commentDTO);
-        return null;
+        List<CommentDTO> commentDTOList =commentService.commentList(commentDTO.getBoardId());
+        return commentDTOList;
     }
+
+
 }
