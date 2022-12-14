@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -80,6 +81,32 @@ public class BoardService {
 
     public void boardDelete(Long id) {
         boardRepository.deleteById(id);
+    }
+
+    public List<BoardDTO> search(String type, String q) {
+        // 작성자 검색
+        // select * from board_table where board_writer like '%q%';
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        List<BoardEntity> boardEntityList = null;
+        if (type.equals("boardWriter")) {
+            boardEntityList = boardRepository.findByBoardWriterContainingOrderByIdDesc(q);
+        } else if (type.equals("boardTitle")) {
+            boardEntityList = boardRepository.findByBoardTitleContainingOrderByIdDesc(q);
+        } else {
+            return null;
+        }
+        for (BoardEntity boardEntity : boardEntityList) {
+//            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+            BoardDTO boardDTO = new BoardDTO();
+            boardDTO.setId(boardEntity.getId());
+            boardDTO.setBoardWriter(boardEntity.getBoardWriter());
+            boardDTO.setBoardTitle(boardEntity.getBoardTitle());
+            boardDTO.setBoardContents(boardEntity.getBoardContents());
+            boardDTO.setBoardHits(boardEntity.getBoardHits());
+            boardDTO.setBoardSaveTime(boardEntity.getBoardSaveTime());
+              boardDTOList.add(boardDTO);
+        }
+        return boardDTOList;
     }
 }
 

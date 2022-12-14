@@ -1,10 +1,13 @@
 package com.example.project.dto;
 
 import com.example.project.entity.BoardEntity;
+import com.example.project.entity.BoardFileEntity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,6 +49,7 @@ public class BoardDTO {
         if(boardEntity.getFileAttached() ==1){
             boardDTO.setFileAttached(boardEntity.getFileAttached());
 
+
             boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
             boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());
         }else{
@@ -53,4 +57,8 @@ public class BoardDTO {
         }
         return boardDTO;
     }
+
+
+
+
 }
