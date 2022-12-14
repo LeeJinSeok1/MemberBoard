@@ -56,13 +56,46 @@
                 <td><a th:href="@{|/boardDelete/${board.id}|}" class="btn btn-danger">삭제</a></td>
             </tr>
         </div>
-
-
-
     </table>
-    <div id="passArea">
+    <!--댓글 -->
+    <div class="container mt-5" >
+        <div id="comment-writer" class="input-group mb-3">
 
+            <div class="form-floating">
+                <input type="text" id="commentWriter" class="form-control" placeholder="작성자" th:value="${session.LoginEmail}" readonly>
+                <label for="commentWriter"> 작성자</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" id="commentContents" class="form-control" placeholder="댓글 내용">
+                <label for="commentContents">내용</label>
+            </div>
+            <button id="comment-write-btn" onclick="commentWrite()" class="btn btn-primary">댓글작성</button>
+
+        </div>
     </div>
 </div>
 </body>
+<script>
+    const commentWrite = () => {
+        const commentWriter=document.getElementById("commentWriter").value;
+        const commentContents=document.getElementById("commentContents").value;
+        const boardId = [[${board.id}]]
+        $.ajax({
+            type:"post",
+            url:"/commentSave",
+            data:{
+                commentWriter:commentWriter,
+                commentContents:commentContents,
+                boardId:boardId
+            },
+            dateType: "json",
+            success: function (ck) {
+
+            },
+            error: function (ck) {
+
+            }
+        })
+    }
+</script>
 </html>
