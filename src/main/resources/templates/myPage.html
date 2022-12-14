@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>myPage</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jqurey.js}"></script>
+</head>
+<body>
+<table class="table table-striped">
+    <tr>
+        <th>id:</th>
+        <td th:text="${member.id}"> </td>
+    </tr>
+    <tr>
+        <th>이메일:</th>
+        <td th:text="${member.memberEmail}"></td>
+    </tr>
+    <tr>
+        <th>비밀번호:</th>
+        <td th:text="${member.memberPass}"></td>
+    </tr>
+    <tr>
+        <th>이름:</th>
+        <td th:text="${member.memberName}"></td>
+    </tr>
+    <tr>
+        <th>가입날짜:</th>
+        <td th:text="${member.memberSaveTime}"></td>
+    </tr>
+    <tr>
+        <th>전화번호:</th>
+        <td th:text="${member.memberMobile}"></td>
+    </tr>
+    <tr th:if="${member.fileAttached == 1}">
+        <th>프로필사진:</th>
+        <td><img th:src="@{|/upload/${member.storedFileName}}" alt=""></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -17,6 +17,7 @@
 <div class="button-group mt-5">
   <a href="/logout" class="btn btn-danger">로그아웃</a>
   <a href="/boardSave" class="btn btn-success">글 작성</a>
+  <a th:href="@{|/memberPage/${session.LoginEmail}|}">마이 페이지</a>
 </div>
 
 <div>

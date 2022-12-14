@@ -7,6 +7,7 @@ import com.example.project.repository.MemberFileRepository;
 import com.example.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -49,7 +50,7 @@ public class MemberService {
         }
 
     }
-
+@Transactional
     public MemberDTO memberLogin(MemberDTO memberDTO) {
         //        email로 DB에서 조회를 하고
 //        사용자가 입력한 비밀번호와 DB에서 조회한 비밀번호가 일치하는지를 판단해서
@@ -74,5 +75,11 @@ public class MemberService {
         }else{
             return null;
         }
+    }
+@Transactional
+    public MemberDTO myPage(String memberEmail) {
+      MemberEntity memberEntity = memberRepository.findByMemberEmail(memberEmail).get();
+      MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
+      return memberDTO;
     }
 }

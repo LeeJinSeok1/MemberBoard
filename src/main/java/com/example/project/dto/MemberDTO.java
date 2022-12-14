@@ -33,6 +33,19 @@ public class MemberDTO {
         memberDTO.setMemberMobile(memberEntity.getMemberMobile());
         memberDTO.setMemberSaveTime(memberEntity.getMemberSaveTime());
         memberDTO.setFileAttached(memberDTO.getFileAttached());
+
+        if(memberEntity.getFileAttached() ==1){
+            memberDTO.setFileAttached(memberEntity.getFileAttached());
+
+            memberDTO.setOriginalFileName(memberEntity.getMemberFileEntityList().get(0).getOriginalFileName());
+            memberDTO.setStoredFileName(memberEntity.getMemberFileEntityList().get(0).getStoredFileName());
+        }else{
+            memberDTO.setFileAttached(memberEntity.getFileAttached());
+        }
+
+
+
+
         return memberDTO;
     }
 }

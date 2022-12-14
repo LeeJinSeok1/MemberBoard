@@ -55,4 +55,13 @@ public class MemberController {
        session.invalidate();
        return "index";
     }
+
+    @GetMapping("/memberPage/{memberEmail}")
+    public String myPage(@PathVariable String memberEmail,
+                         Model model){
+        System.out.println(memberEmail);
+        MemberDTO result = memberService.myPage(memberEmail);
+        model.addAttribute("member",result);
+        return "myPage";
+    }
 }
