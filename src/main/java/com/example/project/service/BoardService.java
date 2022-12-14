@@ -108,6 +108,10 @@ public class BoardService {
         }
         return boardDTOList;
     }
+@Transactional
+    public void boardHits(Long id) {
+        boardRepository.updateHits(id);
+    }
 }
 
 

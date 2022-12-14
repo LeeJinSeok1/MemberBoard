@@ -48,6 +48,7 @@ public class BoardController {
     @GetMapping("/boardDetail/{id}")
     public String boardDetail(@PathVariable Long id,
                               Model model){
+        boardService.boardHits(id);
       BoardDTO boardDTO =  boardService.boardDetail(id);
       model.addAttribute("board",boardDTO);
         List<CommentDTO> commentDTOList = commentService.commentList(id);
