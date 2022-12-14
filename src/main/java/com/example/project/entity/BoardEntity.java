@@ -26,6 +26,8 @@ public class BoardEntity {
     private String boardContents;
     @Column
     private int boardHits;
+    @Column
+    private String boardPass;
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime boardSaveTime;
@@ -44,6 +46,7 @@ public class BoardEntity {
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardHits(0);
         boardEntity.setBoardSaveTime(boardDTO.getBoardSaveTime());
         boardEntity.setFileAttached(0);
@@ -56,6 +59,7 @@ public class BoardEntity {
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardHits(0);
         boardEntity.setBoardSaveTime(boardDTO.getBoardSaveTime());
         boardEntity.setMemberEntity(memberEntity);

@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -27,6 +28,7 @@ public class BoardService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
+
     public void boardSave(BoardDTO boardDTO) throws IOException {
         MemberEntity memberEntity = memberRepository.findByMemberEmail(boardDTO.getBoardWriter()).get();
         if(boardDTO.getBoardFile().isEmpty()) {
@@ -63,6 +65,12 @@ public class BoardService {
         return boardList;
 
 
+    }
+    @Transactional
+    public BoardDTO boardDetail(Long id) {
+       BoardEntity boardEntity= boardRepository.findById(id).get();
+       BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+       return boardDTO;
     }
 }
 

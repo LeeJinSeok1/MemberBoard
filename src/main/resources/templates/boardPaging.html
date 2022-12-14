@@ -34,7 +34,7 @@
     <tr th:each="board: ${boardList}">
       <td th:text="${board.id}"></td>
       <td th:text="${board.boardWriter}"></td>
-      <td><a href="#" th:text="${board.boardTitle}">제목</a></td>
+      <td><a th:href="@{|/boardDetail/${board.id}|}" th:text="${board.boardTitle}">제목</a></td>
       <td th:text="*{#temporals.format(board.boardSaveTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
       <td th:text="${board.boardHits}"></td>
     </tr>
@@ -45,7 +45,7 @@
     <ul class="pagination justify-content-center">
       <li class="page-item">
         <!--첫페이지 요청 링크-->
-        <a class="page-link" th:href="@{/board(page=1)}">
+        <a class="page-link" th:href="@{/boardPaging(page=1)}">
           <span>First</span>
         </a>
       </li>
@@ -53,7 +53,7 @@
       <li th:class="${boardList.first} ? 'disabled'" class="page-item">
         <!--boardList.first: isFirst()
             boardList.number: getNumber()-->
-        <a class="page-link" th:href="${boardList.first} ? '#' : @{/board(page=${boardList.number})}">
+        <a class="page-link" th:href="${boardList.first} ? '#' : @{/boardPaging(page=${boardList.number})}">
           <span><</span> <!-- < -->
         </a>
       </li>
@@ -61,7 +61,7 @@
       <!-- startPage ~ endPage 까지 숫자를 만들어주는 역할 -->
       <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
           th:class="${page == boardList.number + 1} ? 'page-item active'" class="page-item">
-        <a class="page-link" th:text="${page}" th:href="@{/board(page=${page})}"></a>
+        <a class="page-link" th:text="${page}" th:href="@{/boardPaging(page=${page})}"></a>
       </li>
 
       <!-- 다음 페이지 요청
@@ -69,13 +69,13 @@
           getNumber() 값은 2임.
           따라서 4페이지를 보고 싶다면 getNumber()+2를 해야 컨트롤러에 4를 요청할 수 있음. -->
       <li th:class="${boardList.last} ? 'disabled'">
-        <a class="page-link" th:href="${boardList.last} ? '#' : @{/board(page=${boardList.number + 2})}">
+        <a class="page-link" th:href="${boardList.last} ? '#' : @{/boardPaging(page=${boardList.number + 2})}">
           <span>&gt;</span>
         </a>
       </li>
 
       <li class="page-item">
-        <a class="page-link" th:href="@{/board(page=${boardList.totalPages})}">
+        <a class="page-link" th:href="@{/boardPaging(page=${boardList.totalPages})}">
           <span>Last</span>
         </a>
       </li>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class BoardController {
     @PostMapping("/boardSave")
     public String boardSave(@ModelAttribute BoardDTO boardDTO) throws IOException {
         boardService.boardSave(boardDTO);
-        return "boardSaveSuccess";
+        return "redirect:boardPaging";
     }
     @GetMapping("/boardPaging")
     public String boardPaging(@PageableDefault(page =1)Pageable pageable,
@@ -41,5 +42,13 @@ public class BoardController {
         model.addAttribute("endPage", endPage);
         System.out.println(boardDTOList);
         return "boardPaging";
+    }
+
+    @GetMapping("/boardDetail/{id}")
+    public String boardDetail(@PathVariable Long id,
+                              Model model){
+      BoardDTO boardDTO =  boardService.boardDetail(id);
+      model.addAttribute("board",boardDTO);
+      return "boardDetail";
     }
 }
