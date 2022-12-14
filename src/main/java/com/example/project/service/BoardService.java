@@ -72,6 +72,15 @@ public class BoardService {
        BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
        return boardDTO;
     }
+
+    public void boardUpdate(BoardDTO boardDTO) {
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDTO);
+        boardRepository.save(boardEntity);
+    }
+
+    public void boardDelete(Long id) {
+        boardRepository.deleteById(id);
+    }
 }
 
 

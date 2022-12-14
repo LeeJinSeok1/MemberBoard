@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+</head>
+<body>
+<div class="container">
+  <form action="/boardUpdate" method="post" class="form-control mt-5" style="width:800px">
+    <input type="text" th:value="${board.id}" name="id" hidden>
+    <input type="text" th:value="${board.boardPass}" name="boardPass" hidden>
+    <input type="text" th:value="${board.boardHits}" name="boardHits" hidden>
+    <input type="text" class="form-control mt-5"  th:value="${board.boardWriter}" readonly name="boardWriter">
+    <input type="text" class="form-control mt-5" th:value="${board.boardTitle}" name="boardTitle">
+    <textarea name="boardContents" class="form-control mt-5" id="" cols="30" rows="10" placeholder="내용"
+              th:text="${board.boardContents}"></textarea>
+<!--    <tr th:if="${board.fileAttached == 1}">-->
+<!--      <th>image</th>-->
+<!--      <td th:each="fileName:${board.storedFileName}">-->
+<!--        <img th:src="@{|/upload/${fileName}}" alt="" width="200" height="200">-->
+<!--      </td>-->
+<!--    </tr>-->
+
+    <input type="submit" class="btn btn-success mt-5" value="수정완료">
+  </form>
+</div>
+
+</body>
+</html>

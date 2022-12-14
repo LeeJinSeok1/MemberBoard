@@ -66,4 +66,15 @@ public class BoardEntity {
         boardEntity.setFileAttached(1);
         return boardEntity;
     }
+
+    public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setId(boardDTO.getId());
+        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardHits(boardDTO.getBoardHits());
+        boardEntity.setBoardPass(boardDTO.getBoardPass());
+        return boardEntity;
+    }
 }

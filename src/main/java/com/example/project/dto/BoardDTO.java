@@ -40,6 +40,7 @@ public class BoardDTO {
         boardDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDTO.setBoardContents(boardEntity.getBoardContents());
         boardDTO.setBoardHits(boardEntity.getBoardHits());
+        boardDTO.setBoardPass(boardEntity.getBoardPass());
         boardDTO.setBoardSaveTime(boardEntity.getBoardSaveTime());
 
         if(boardEntity.getFileAttached() ==1){

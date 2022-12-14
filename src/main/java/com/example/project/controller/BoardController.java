@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,5 +51,25 @@ public class BoardController {
       BoardDTO boardDTO =  boardService.boardDetail(id);
       model.addAttribute("board",boardDTO);
       return "boardDetail";
+    }
+    @GetMapping("/boardUpdate/{id}")
+    public String boardUpdatePage(@PathVariable Long id,
+                                  Model model) {
+        BoardDTO boardDTO = boardService.boardDetail(id);
+        model.addAttribute("board",boardDTO);
+        return "boardUpdate";
+    }
+
+    @PostMapping("/boardUpdate")
+    public String boardUpdate(@ModelAttribute BoardDTO boardDTO){
+        boardService.boardUpdate(boardDTO);
+        return "redirect:boardPaging";
+    }
+
+    @Transactional
+    @GetMapping("/boardDelete/{id}")
+    public String boardDelete(@PathVariable Long id) {
+        boardService.boardDelete(id);
+        return "boardDelete";
     }
 }
