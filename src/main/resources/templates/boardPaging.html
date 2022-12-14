@@ -18,9 +18,7 @@
   <a href="/logout" class="btn btn-danger">로그아웃</a>
   <a href="/boardSave" class="btn btn-success">글 작성</a>
   <a th:href="@{|/memberPage/${session.LoginEmail}|}" class="btn btn-primary">마이 페이지</a>
-  <div th:if="${session.LoginEmail=='admin'}">
-    <a href="/admin">관리자 페이지</a>
-  </div>
+  <a th:if="${session.LoginEmail=='admin'}" href="/admin" class="btn btn-dark">관리자 페이지</a>
 </div>
 
 <div>
