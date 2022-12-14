@@ -82,4 +82,16 @@ public class MemberService {
       MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
       return memberDTO;
     }
+
+    public void memberUpdate(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setId(memberDTO.getId());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPass(memberDTO.getMemberPass());
+        memberEntity.setMemberMobile(memberDTO.getMemberMobile());
+        memberRepository.save(memberEntity);
+
+
+    }
 }

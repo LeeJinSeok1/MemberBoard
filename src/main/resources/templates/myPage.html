@@ -7,36 +7,61 @@
     <script th:src="@{/js/jqurey.js}"></script>
 </head>
 <body>
-<table class="table table-striped">
-    <tr>
-        <th>id:</th>
-        <td th:text="${member.id}"> </td>
-    </tr>
-    <tr>
-        <th>이메일:</th>
-        <td th:text="${member.memberEmail}"></td>
-    </tr>
-    <tr>
-        <th>비밀번호:</th>
-        <td th:text="${member.memberPass}"></td>
-    </tr>
-    <tr>
-        <th>이름:</th>
-        <td th:text="${member.memberName}"></td>
-    </tr>
-    <tr>
-        <th>가입날짜:</th>
-        <td th:text="${member.memberSaveTime}"></td>
-    </tr>
-    <tr>
-        <th>전화번호:</th>
-        <td th:text="${member.memberMobile}"></td>
-    </tr>
-    <tr th:if="${member.fileAttached == 1}">
-        <th>프로필사진:</th>
-        <td><img th:src="@{|/upload/${member.storedFileName}}" alt=""></td>
-    </tr>
-</table>
+<!--<table class="table table-striped">-->
+<!--    <tr>-->
+<!--        <th>id:</th>-->
+<!--        <td th:text="${member.id}"> </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>이메일:</th>-->
+<!--        <td th:text="${member.memberEmail}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>비밀번호:</th>-->
+<!--        <td th:text="${member.memberPass}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>이름:</th>-->
+<!--        <td th:text="${member.memberName}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>가입날짜:</th>-->
+<!--        <td th:text="${member.memberSaveTime}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>전화번호:</th>-->
+<!--        <td th:text="${member.memberMobile}"></td>-->
+<!--    </tr>-->
+<!--    <tr th:if="${member.fileAttached == 1}">-->
+<!--        <th>프로필사진:</th>-->
+<!--        <td><img th:src="@{|/upload/${member.storedFileName}}" alt=""></td>-->
+<!--    </tr>-->
+<!--</table>-->
+<div class="container">
+    <div th:if="${member.fileAttached == 1}">
+        프로필:<img th:src="@{|/upload/${member.storedFileName}}" alt="">
+    </div>
+    <form action="/memberUpdate" method="post" class="form-control" style="width:1000px " name="memberForm">
+        아이디:<input type="text" class="form-control" th:value="${member.id}" name="id" readonly>
+        이름:<input type="text" class="form-control" th:value="${member.memberName}" name="memberName" readonly>
+        이메일:<input type="text" class="form-control" th:value="${member.memberEmail}" name="memberEmail">
+        비밀번호:<input type="text" class="form-control" placeholder="이메일 수정시 비밀번호를 입력해주세요." name="memberPass" id="pass">
+        가입날짜:<input type="text" class="form-control" th:value="${member.memberSaveTime}"  readonly>
+        <input type="button" onclick="passCk()" class="btn btn-warning" value="수정하기">
+    </form>
+</div>
+<script>
+    const passCk=()=>{
+        const pass =document.getElementById("pass").value;
+        const memberPass= [[${member.memberPass}]]
+        if(pass != memberPass){
+            alert("비밀번호를 확인해주세요")
+        }else{
+            alert("수정완료 다시 로그인해주세요.")
+            document.memberForm.submit();
+        }
+    }
+</script>
 
 </body>
 </html>

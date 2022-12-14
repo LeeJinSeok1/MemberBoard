@@ -64,4 +64,14 @@ public class MemberController {
         model.addAttribute("member",result);
         return "myPage";
     }
+
+    @PostMapping("/memberUpdate")
+    public String memberUpdate(@ModelAttribute MemberDTO memberDTO,
+                               Model model) {
+        memberService.memberUpdate(memberDTO);
+
+//        MemberDTO result = memberService.myPage(memberDTO.getMemberEmail());
+//        model.addAttribute("member",result);
+        return "index";
+    }
 }
